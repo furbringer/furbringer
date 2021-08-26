@@ -1,0 +1,1249 @@
+\input{DOE_PHYS_preamble}
+
+
+% \title{Méthodologie des plans d'expériences}
+
+%---------------------  Définition de la profondeur de la table des matières
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% \section[Outline]{}
+\section{Introduction}
+
+
+
+%-------------------------------------------------------------------------------------------------
+%
+%
+%   				                SECTION: INTRODUCTION
+%
+%
+%-------------------------------------------------------------------------------------------------
+
+\frame{\tableofcontents}
+
+
+%-------------------------------------------------------------------------------------------------
+%
+%   SUBSECTION: Organisation du cours
+%
+%-------------------------------------------------------------------------------------------------
+
+\subsection{Organisation du cours}
+
+
+
+%-----------------------------------      ORGANISATION DU COURS          ----------------------
+\refstepcounter{diapo}
+\frame{\frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Organisation du cours}
+
+\begin{columns}
+   	\column{0.5\textwidth}
+          \textbf{Horaire}
+              \begin{itemize}
+                      \item Cours 13h15-15h sur Zoom,  
+                      \item Vidéos (2020-2021) disponibles sur Switchtube
+                      \item Exercices 15h15-17h, 
+                      \item Démarrage sur Zoom tous ensemble
+                      \item Disponible ensuite pour répondre aux questions
+                     %  \item Salle CM 1121
+              \end{itemize}
+
+	\column{0.5\textwidth}
+          \textbf{Evaluation}
+              \begin{itemize}
+                 \item Take-home exam 
+                 \item Analyse d'un cas
+                 \item Question théorique
+              \end{itemize}
+  \end{columns}
+}
+
+
+%----------------------------------    TRAVAIL ATTENDU          ---------------------------------
+\refstepcounter{diapo}
+\frame{\frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Travail attendu}
+
+  \begin{itemize}
+	  \item Participation au cours
+	  \item Travailler les exercices en profondeur (aspects calculatoires et statistiques)
+	  \item Combler vos lacunes
+	  \item 4 ects $\approx$ 112h de travail: 8h/semaine    
+  \end{itemize}
+}
+
+%-----------------------------------    RESSOURCES    -------------------------------------
+\refstepcounter{diapo}
+\frame{\frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Ressources}
+
+  \begin{itemize}
+	  \item Site Moodle avec les slides du cours et exercices
+	  \item Polycopié du cours EDOC
+	  \item Internet et bibliothèque   
+  \end{itemize}
+}
+
+%-----------------------------------   REFERENCES   -----------------------------------
+\refstepcounter{diapo}
+\frame{ \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Références}
+
+  \begin{itemize}
+	  \item Box, G., et al (2000), Statistics for experimenters, Wiley. 
+	  \item Montgommery, D. (2009), Design and analysis of experiments, Wiley.
+	  \item Ryan,Th. (2007), Modern Experimental design, Wiley.
+	  \item Saltelli,A. (2000), Sensitivity analysis, Wiley.
+	  \item Lawson, J. (2014), Design and Analysis of Experiments with R, CRC press.      
+  \end{itemize}
+}
+%-----------------------------------    OUTILS DE CALCUL   ----------------------------------- 
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Outils de calcul (Softwares)}
+
+  \begin{itemize}
+	  \item {\color{red} Matlab}
+	  \item Python   
+	  \item {\color{red} Excel}  
+  \end{itemize}
+}
+
+%-------------------------------------------------------------------------------------------------
+%
+%   SUBSECTION: Pourquoi un cours de DOE?
+%
+%-------------------------------------------------------------------------------------------------
+
+\subsection{Pourquoi un cours de DOE?}
+
+%-----------------------------------   OBJECTIFS   -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Objectifs}
+
+ \begin{columns}
+   	\column{0.5\textwidth}
+
+  \begin{itemize}
+  \item Expériences scientifiques:  déterminer les relations de cause à effet
+  \item Contingences: le temps, les coûts, les batches, la sécurité, ...   
+  \end{itemize}
+  
+  	\column{0.5\textwidth}
+  	
+  	\include{figures/fig_cause_accident}
+  	
+  	\end{columns}
+  
+}
+
+%-----------------------------------  DEVELOPPEMENT DES STATISTIQUES    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Développement des statistiques}
+
+
+\begin{itemize}
+\item Sumer (IIIème millénaire avant J.-C.)
+			\begin{itemize} \scriptsize 
+			\item[-] Recensement du bétail (liste, codage)
+			\item[-] Observer et prédire levers et couchers du Soleil et de la Lune, les marées et les crues 
+			\end{itemize}
+\item Aristote (384-322 avant J.-C.)
+	\begin{itemize}\scriptsize 
+	 \item[-] \emph{Toute conclusion démontrée est éternelle : il n'y a donc pas de démonstration pour les choses périssables, de même qu'il n'y a pour elles que science d'accident.}
+	\end{itemize}
+
+\item René Descartes (1596-1650),  Pierre de Fermat (1607-1665) et Blaise Pacal (1623-1662)
+			\begin{itemize} \scriptsize 
+			\item[-]  \emph{Théorie des probabilités} 
+			\end{itemize}
+
+\item Thomas Bayes (1702-1761) et Pierre Simon de Laplace (1749-1827)
+	\begin{itemize}\scriptsize 
+	\item[-] Probabilité conditionnelle,  prior vs posterior information
+	\end{itemize}
+
+\item Francis Galton (1822-1911),  Karl Pearson (1857-1936) et Ronald Fisher (1890-1962)
+	\begin{itemize}\scriptsize 
+	\item[-] Génétique,  eugénisme,  corrélation
+	\end{itemize}
+
+\end{itemize}
+}
+
+%-----------------------------------    FISHER    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Sir Ronald Fisher (1890-1962)}
+\scriptsize
+ \begin{columns}
+   	\column{0.5\textwidth}
+              \begin{itemize}
+              \item Station agronomique de Rothamsted, 1919
+              \item Trop de recherches non conclusives
+              \item Collaboration statisticien-expérimentateur 
+              \item Invention ANOVA et DOE
+              \item Statistical Methods for Research Workers (1925) ($\sim$ au \emph{Principia} de Newton)
+              \item The Design of Experiments (1935)
+              \item Fondateur du néo-darwinisme  et de la génétique moderne
+              \end{itemize}
+   	\column{0.5\textwidth}
+		\begin{figure} [H]
+   		    \includegraphics[width=4.5cm]{figures/Fisher.pdf}
+		 \end{figure}
+\end{columns}
+}
+
+
+
+
+%----------------------------------------------------------------------
+%
+%   		SUBSECTION: Notions de base de statistique
+%
+%----------------------------------------------------------------------
+
+\subsection{Notions de base de statistique}
+
+%-----------------------------------   Data, Metadata, Tableau, Examen visuel   -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Data, Metadata, Tableau, Examen visuel}
+
+  \begin{itemize}
+  \item On fait de la statistique sur quelque chose
+  \item Support: numérique, graphique, codage
+  \item Volume: nombre de données, nombre de variables, nombre de répétitions
+  \item Structure 
+  \item Metadonnées: description, date, unités, offset, cahier de laboratoire, opérateur   
+  \end{itemize}
+}
+
+%-----------------------------------    DATA: CERISIER   -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Données: Cerisier}
+  \tiny
+  \centering
+  \begin{tabular} {c c c c}
+  \hline \\ [-1mm]
+	&	Circonférence	&	Hauteur	&	Volume	\\
+	&	[inch]	&	[feet]	&	[cubic feet]	\\ [1mm]
+	\hline \\ [-1mm]
+1	&	8.3	&	70	&	10.3	\\
+2	&	8.6	&	65	&	10.3	\\
+3	&	8.8	&	63	&	10.2	\\
+4	&	10.5	&	72	&	16.4	\\
+5	&	10.7	&	81	&	18.8	\\
+6	&	10.8	&	83	&	19.7	\\
+7	&	11	&	66	&	15.6	\\
+8	&	11	&	75	&	18.2	\\
+9	&	11.1	&	80	&	22.6	\\
+10	&	11.2	&	75	&	19.9	\\
+11	&	11.3	&	79	&	24.2	\\
+12	&	11.4	&	76	&	21	\\
+13	&	11.4	&	76	&	21.4	\\
+14	&	11.7	&	69	&	21.3	\\
+15	&	12	&	75	&	19.1	\\
+16	&	12.9	&	74	&	22.2	\\
+17	&	12.9	&	85	&	33.8	\\
+18	&	13.3	&	86	&	27.4	\\
+19	&	13.7	&	71	&	25.7	\\
+20	&	13.8	&	64	&	24.9	\\ [1mm]
+\hline
+  \end{tabular}
+}
+
+%-----------------------------------------   DATA: TITANIC   ---------------------------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Données: Passagers du Titanic}
+  \small
+  \centering
+  \begin{tabular} {|c|c | c c | c c|}
+   \hline 
+  	& & & & &\\ [-1mm]
+	&		&	\multicolumn{2}{c|}{Décédés}		&	\multicolumn{2}{c|}{Survivants}		\\  [1mm]
+  \hline 
+  	& & & & &\\ [-1mm]
+	Age&	Classe	&	M	&	F	&	M	&	F	\\  [1mm]
+  \hline 
+  	& & & & &\\ [-1mm]
+Enfants	&	1st	&	0	&	0	&	5	&	1	\\
+	&	2nd	&	0	&	0	&	11	&	13	\\
+	&	3rd	&	35	&	17	&	13	&	14	\\
+	&	Equipage	&	0	&	0	&	0	&	0	\\  [1mm]
+	\hline
+	& & & & &\\ [-1mm]
+Adultes	&	1st	&	118	&	4	&	57	&	140	\\
+	&	2nd	&	154	&	13	&	14	&	80	\\
+	&	3rd	&	387	&	89	&	75	&	76	\\
+	&	Equipage	&	670	&	3	&	192	&	20	\\  [1mm]
+\hline
+  \end{tabular}
+  }
+
+
+
+
+
+%-----------------------------------------  PAREIDOLIE -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Paréidolie}
+
+\small
+\begin{center}
+\includegraphics[width=0.5\textwidth]{figures/Pareidolia-en-objetos-cotidianos.png} 
+\end{center}
+
+Notre cerveau a  tendance  à  voir  des  motifs  dans  des ensembles aléatoires ainsi que la tendance à scénariser, c'est à dire raconter une histoire et donner du sens, à partir d'une image. La statistique offre des outils, les tests par exemple, pour dépasser la perception.
+
+}
+
+%-----------------------------------------  CYDONIA MENSAE -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Cydonia Mensae}
+\scriptsize
+
+
+\begin{columns}
+   	\column{0.55\textwidth}
+   	
+   	\begin{itemize}
+   	\item Le \og visage de Mars \fg{} met en évidence l'influence de la résolution d'une image numérique sur les interprétations qu'on peut en donner. 
+   	\item Le principe de parcimonie des hypothèses: il est moins coûteux en hypothèses d'envisager que notre cerveau cherche et donne du sens à cette image, reconnaissant un visage dans un cliché plutôt que de privilégier l'existence d'une société extraterrestre, ayant construit un édifice gigantesque représentant un visage humanoïde.
+   	\end{itemize}
+
+
+
+   	\column{0.35\textwidth}
+		\begin{figure} [H]
+   		    \includegraphics[width=2cm]{figures/Face-on-mars.jpg}
+   		    
+   		    Viking (1971)
+		 \end{figure}
+		 
+		 \begin{figure} [H]
+   		    \includegraphics[width=2cm]{figures/Mars_face.png}
+   		    
+   		    Mars global surveyor (2001)
+		 \end{figure}
+\end{columns}
+
+\url{https://fr.wikipedia.org/wiki/Cydonia_Mensae}
+}
+%-----------------------------------------  ECUEILS   -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Les écueils de l'analyse de données}
+
+\small
+\begin{columns}
+   	\column{0.4\textwidth}
+		\textbf{Biais cognitifs}   	
+   	
+   		\begin{itemize}
+			\item sensori-moteurs (illusions)
+			\item attentionnels
+			\item mnésique
+			\item de jugement
+			\item de raisonnement
+		\end{itemize}
+   	\column{0.6\textwidth}
+   		\textbf{Quelques exemples}
+		\begin{itemize}
+			\item Paréidolie 
+			\item Confusion corrélation/causalité
+			\item Biais de confirmation (Cherry picking)
+			\item Biais de croyance
+			\item L'erreur fondamental d'attribution
+			\item Effet Barnum (expérience de Forer)
+		\end{itemize}
+\end{columns}
+
+\vfill
+
+\url{https://en.wikipedia.org/wiki/List_of_cognitive_biases}
+
+}
+%----------------------------------------- Causalité  -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Causalité}
+\begin{center}
+
+\includegraphics[width=0.8\textwidth]{figures/causalite.png} 
+\end{center}
+
+}
+%----------------------------------------- TRL  -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Technology readiness level}
+
+\begin{center}
+\include{figures/fig_echelle_TRL}
+\end{center}
+
+
+
+}
+%-----------------------------------------   -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Consensus scientifique}
+
+\vspace{-1cm}
+
+\begin{center}
+\include{figures/fig_echelle_preuve}
+\end{center}
+}
+
+%-----------------------------------------  NIVEAU de PREUVE -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Niveau de preuve}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figures/niveau_preuve.png} 
+\end{center}
+}
+
+%-----------------------------------------  FALSIFIABLE -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Réfutabilité (Popper) }
+
+\begin{itemize}
+\item Une affirmation, une hypothèse, est dite réfutable (falsifiable) si et seulement si elle peut être logiquement contredite par un test empirique. ... Plus précisément, si et seulement s'il existe des "énoncés d'observation" possibles (vrai ou faux) contredisant logiquement la théorie.
+
+\item Pour être réputée scientifique, une affirmation, une théorie doit être réfutable.
+\end{itemize}}
+
+
+%-----------------------------------------  ETUDE CLINIQUE   -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Qualificatifs des études cliniques}
+
+\scriptsize
+\begin{description}[align right,labelwidth=3cm]
+\item[\textbf{Prospectif:}]  définir avant le début des essais (1) la population qui sera étudiée avec les critères d'inclusion et d'exclusion, (2) les différents paramètres étudiés, (3) les critères de sortie d'essai.
+\item[\textbf{Rétrospectif:}] recherche de liens entre un état présent et un événement antérieur à partir de données préalables (risque de biais de sélection). 
+\item[\textbf{Contrôlé:}] S'il y a comparaison avec un groupe témoin si nécessaire en faisant usage d'un placebo.
+\item[\textbf{Randomisé:}] Si la répartition entre les groupes est aléatoire.
+\item[\textbf{Simple aveugle:}] Le sujet ne sait pas à quel groupe il est affecté.
+\item[\textbf{Double aveugle:}] Le sujet et l'expérimentateur ne sait pas à quel groupe le sujet est affecté.
+\end{description}
+
+
+
+
+}
+
+
+%-----------------------------------------  DATA: Nouveau médicament(1)   -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Impact d'un nouveau médicament}
+  \small
+ %\centering
+  On enregistre le \textbf{taux de guérison} de 700 patients qui ont eu accès à un nouveau médicament. 350 l'ont pris (avec), 350 ne l'ont pas pris (sans).
+
+\vspace*{5mm}  
+  
+\begin{columns}[c]
+    \column{5cm}
+			\begin{tabular} {|c|c |c|}
+   				\hline 
+  					& &  \\ [-1mm]
+					&	Avec	&	Sans	\\  [1mm]
+  				\hline 
+  					&  &\\ [-1mm]
+					Homme &	81/87	&	234/270	\\  [1mm]
+  				\hline 
+  					&  &\\ [-1mm]
+					Femme	&	192/263	&	55/80	\\  [1mm]
+				\hline
+					& & \\ [-1mm]
+					Combiné	&	273/350	&	289/350	\\  [1mm]
+				\hline
+  \end{tabular}
+     \column{5cm}	 
+   		  \begin{tabular} {|c|c |c|}
+  			 \hline 
+  					& &  \\ [-1mm]
+					&	Avec	&	Sans	\\  [1mm]
+ 			 \hline 
+  					&  &\\ [-1mm]
+					Homme &	93\%	&	87\% 	\\  [1mm]
+ 			 \hline 
+  					&  &\\ [-1mm]
+					Femme	&	72\%	&	69\%	 \\  [1mm]
+			\hline
+					& & \\ [-1mm]
+					Combiné	&	78\%	&	83\% 	\\  [1mm]
+			\hline
+  \end{tabular}
+	
+\end{columns}  
+
+\vspace*{5mm}  
+
+Est-ce que le médicament est à conseiller ou pas? 
+
+}
+
+%-----------------------------------    FACTEUR DE CONFUSION    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Analyse causale}
+  \footnotesize
+  
+ \begin{center}
+ \includegraphics[width=0.9\textwidth]{figures/test_medic.jpg} 
+ \end{center}
+  
+  }
+
+%-----------------------------------    FACTEUR DE CONFUSION    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Facteur de confusion}
+  \footnotesize
+  
+  \begin{itemize}
+  \item  Si \textbf{prendre le médicament} apparait moins efficace que \textbf{ne rien faire} c'est que si on choisit au hasard une personne qui ait pris le médicament, la probabilité est grande que cette personne soit une femme et donc que sa guérison soit moins facile qu'une personne choisie au hasard parmi celles qui n'ont pas utilisé le médicament, auquel cas la probabilité est plus grande que se soit un homme et qu'il ait guéri plus facilement.
+  \item  Dans l'exemple, \textbf{Être une femme} est une cause commune de\textbf{ prendre le médicament } et de \textbf{guérir plus difficilement}
+  \item Le donnée agrégée ne permettent en fait pas de tester vraiment l'efficacité du médicament.
+  \item Pour tester l'efficacité du médicament il faut un groupe homogène de manière à ce que la différence du taux de guérison soit imputable au seul médicament et pas à l'effet de l'\oe strogène.
+  \item Donc les résultats non agrégés doivent être considérés dans ce cas
+  \end{itemize}
+  
+  }
+
+%-----------------------------------    ELECTIONS CANTONALE    ------------------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Participation élections cantonales 2017}
+  \tiny
+  \centering
+  \begin{tabular} {l c c l c c}
+  \hline \\ [-1mm]
+	Commune	&	1er tour	&	2nd tour	& 	Commune	&	1er tour	&	2nd tour	\\ [1mm]
+	\hline \\ [-1mm]            
+                Aigle	&	38.59	&	35.78	& 	Corcelles-le-Jorat	&	57.32	&	52.88	\\
+                Bex	&	37.68	&	35.40	& 	Corcelles-près-Payerne	&	39.01	&	37.22	\\
+                Chessel	&	48.09	&	36.29	& 	Cudrefin	&	32.08	&	28.75	\\
+                Corbeyrier	&	51.11	&	49.04	& 	Curtilles	&	41.12	&	38.03	\\
+                Gryon	&	45.85	&	41.54	& 	Dompierre VD	&	52.13	&	51.04	\\
+                Lavey-Morcles	&	35.62	&	37.65	& 	Faoug	&	29.93	&	29.09	\\
+                Leysin	&	40.68	&	36.44	& 	Grandcour	&	40.20	&	38.18	\\
+                Noville	&	41.32	&	37.56	& 	Henniez	&	34.01	&	31.38	\\
+                Ollon VD	&	45.42	&	40.67	& 	Hermenches	&	44.49	&	43.85	\\
+                Ormont-Dessous	&	41.26	&	39.69	& 	Lovatens	&	41.88	&	52.14	\\
+                Ormont-Dessus	&	46.19	&	43.25	& 	Lucens	&	36.76	&	34.97	\\
+                Rennaz	&	27.05	&	23.18	& 	Missy	&	45.35	&	48.65	\\
+                Roche VD	&	27.56	&	27.13	& 	Moudon	&	32.22	&	32.11	\\
+                Villeneuve VD	&	36.76	&	32.57	& 	Payerne	&	34.90	&	33.58	\\
+                Yvorne	&	48.16	&	43.55	& 	Prévonloup	&	39.82	&	42.73	\\
+                Avenches	&	35.15	&	32.13	& 	Ropraz	&	48.42	&	46.29	\\
+                Bussy-sur-Moudon	&	37.82	&	38.00	& 	Rossenges	&	52.38	&	52.38	\\
+                Champtauroz	&	62.07	&	50.57	& 	Syens	&	50.00	&	49.46	\\
+                Chavannes-sur-Moudon	&	50.90	&	49.40	& 	&		&		\\
+                Chevroux	&	40.42	&	38.32	& 	etc pour 309 communes	&		&		\\ [1mm]
+\hline
+  \end{tabular}
+}
+
+
+%-----------------------------------    INPUT MATLAB    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Intput-Output}
+ \scriptsize
+ \begin{block} { MATLAB}	
+      	\begin{itemize}
+			\item \color{blue} \emph{X=0:1:20} \color{black}  crée le vecteur $X=[0, 1, 2, \dots, 20]$
+			\item \color{blue} \emph{X=[ \dots]} \color{black}  crée un vecteur avec des valeurs spécifiques
+			\item \color{blue} \emph{T = table(var1, ..., varN, Name, Value)}	 \color{black}  crée une table
+			\item \color{blue} \emph{T = readtable(FileName.xls','Sheet',SheetName)}  \color{black} charge une table depuis un fichier Excel
+		\end{itemize}
+\end{block}
+
+}
+%-----------------------------------    ANALYSE VISUELLE    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Analyse visuelle}
+  \scriptsize
+  \begin{columns}
+   	\column{0.5\textwidth}
+   		
+		Détecter des  motifs, des aberrations, des tendances, etc
+		
+		\begin{block} { Matlab}	
+      				\begin{itemize}
+						\item \color{blue} \emph{plot(x, y)} \\
+						 \color{blue} \emph{plot(x, y, LineSpec)} \\
+						 \color{blue} \emph{plot($x_1$, $y_1$,\dots, $x_n$, $y_n$)} \\
+						 \color{blue} \emph{plot(\dots,Name,Value)} \\ [1mm]		
+						\item \color{blue} \emph{bar(x, y)} \\
+         					 \color{blue} \emph{bar(\dots, Width)} \\
+       						  \color{blue} \emph{bar(\dots, Style)} \\
+         				          \color{blue} \emph{bar(\dots, Name, Value)} 
+     				        \end{itemize}
+		\end{block}
+	\column{4cm}
+		% \centering
+		\begin{figure} [H]
+   		 \includegraphics[width=5cm]{figures/participation_12.eps}
+		 \end{figure}
+		 
+		 \vspace{-1cm}
+		 
+		 \begin{figure}  [H]
+   		 \includegraphics[width=5cm]{figures/participation_bar_1.eps}
+		 \end{figure}
+		 
+   	 \end{columns}
+}
+%-----------------------------------    CLASSER LES DONNEES    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Classer les données}
+
+ $ x_1\ x_2\ \dots x_N \quad \Rightarrow \quad x_{(1)}\ < x_{(2)}\ < \dots < x_{(N)}$
+\vfill
+\scriptsize
+\begin{block} { MATLAB}	
+      				\begin{itemize}
+						\item \color{blue} \emph{[B,Index]=sort(A,dim,direction)} 
+						 \item \color{blue} \emph{[B,Index]=sortrows(A,col,direction)} 
+						  \item \color{blue} \emph{[tblB,Index]=sortrows(tblA,col,direction)} \\ [1mm]	
+         					 	  \color{black} \emph{A, B : matrice} \\
+						 \emph{tblA, tblB : table} \\
+ 							 \emph{dim : la direction pour effectuer le classement (1,2, \dots)} \\
+       							 \emph{col : la colonne de référence pour classer} \\
+  							 \emph{direction: 'ascend' or 'descend'}
+     				        \end{itemize}
+		\end{block}
+
+ }
+
+%-----------------------------------    PLOT    -----------------------------------
+
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Plot des données classées}
+
+\begin{figure} [H]
+   		 \includegraphics[width=10cm]{figures/participation.eps}
+		 \end{figure}
+}
+%----------------------------------------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt}Scatter plot des données}
+	\begin{figure} [H]
+   		 \includegraphics[width=10cm]{figures/participation_scatter.eps}
+	 \end{figure}
+}
+%-----------------------------------    CATEGORIES    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Traitement des catégories}
+
+La définition d'une colonne comme \emph{categorical} permet ensuite d'effectuer des opérations par catégories
+
+\vfill
+\scriptsize
+\begin{block} { MATLAB}	
+      		\begin{itemize}
+						
+				 \item \color{blue} \emph{B=categorical(A)} \\ [1mm]
+				 	\color{green} \emph{tbl.var = categorical(tbl.var)} 
+				  \item \color{blue} \emph{statarray = grpstats(tbl,group,stats)} \\ [1mm]
+         					 	  \color{green} \emph{stats=grpstats(tbl,?var1?,\{ ?min','max'  \},?tblVars?,?var2?)} \\ 
+				   \item \color{blue} \emph{gscatter(x,y,group)} \\ [1mm] 
+				
+					 \color{black}  \emph{A,B : array ou colonne de table} \\
+					 \emph{tbl : table} \\	
+  							 \emph{group: la (les) variable(s) de groupe} \\
+					  \emph{stats: les statistiques à calculer telles que ?min? etc.} \\
+     		\end{itemize}
+\end{block}
+ }
+
+%-----------------------------------    BOXPLOT    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Box-plot (definition)}
+\begin{columns}[c]
+    \column{.6\textwidth}
+   		\includegraphics[width=6cm]{figures/boxplot.png}	 
+	\column{.4\textwidth}
+	  \begin{itemize}
+		  \item Les \textit{outliers} sont les points éloignés de plus de 1.5 IQR à gauche de $Q_1$ ou à droite de $Q_3$
+		  \item Les moustaches (Wiskers) sont placés au minimum ou maximum des points une fois exclus les outliers
+	  \end{itemize}
+\end{columns}
+   }
+
+%---------------------------------------------------------------------------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Box-plot des données}
+\begin{columns}[c]
+    \column{7cm}
+	\begin{figure} [H]
+   		 \includegraphics[width=7cm]{figures/participation_boxplot.eps}	 
+	\end{figure}
+     \column{4cm}	 
+	 \begin{figure} [H]
+		  \includegraphics[width=4cm]{figures/Carte_arrondissement_VD.png}
+	\end{figure}
+\end{columns}
+}
+
+%-----------------------------------    EMPLACEMENT ET ETENDUE    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Emplacement et étendue}
+ \begin{center}
+       $x_{(1)}\ , x_{(2)}\ , \dots  , x_{(N/4)} ,\dots ,  x_{(N/2)} ,\dots , x_{(3N/4)}     , x_{(N-1)}, x_{(N)}$
+ \end{center}
+\begin{columns}[c]
+    \column{6cm}
+              \begin{itemize}
+                  \item Médiane (\emph{median})
+                  \item Moyenne (\emph{average})
+                  \item Plage (\emph{range})
+                  \item Eccart-type (\emph{standard deviation})
+                  \item Variance (\emph{variance})
+                  \item Quartile (\emph{quartile})
+                  \item Centile (\emph{percentile})     
+              \end{itemize}
+      \column{3cm}
+       		\begin{block} {MATLAB}	
+      			\color{blue} \emph{ M = median(A) \\
+			M = mean(A) \\
+			R = range(A) \\
+			S = std(A) \\
+			v = var(A) \\
+			Y = quantile(X,p) }	
+		\end{block}
+    \end{columns}
+}
+%---------------------------------------------------------------------------------------------------------
+% \refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt}Emplacement et étendue  }
+
+\begin{columns}
+    \column{6cm}
+ 		$$m_x=\frac{1}{N} \sum \limits_{i=1}^N x_i $$
+	
+		$$var(x)=s_x^2=\frac{1}{N-1} \sum \limits_{i=1}^N (x_i-m)^2 $$ 
+		
+		 $$s_x= \sqrt{s_x^2}=  \sqrt{\frac{1}{N-1} \sum \limits_{i=1}^N (x_i-m)^2} $$
+	 \column{5cm}	
+($N$ nombre de données)	 
+	 	 
+		 $$ M=  \begin{cases}  
+		 	 \frac{1}{2} ( x_{(N/2)} +x_{(N/2+1)} )  \\ 
+		 	x_{((N+1)/2)} 
+		 	\end{cases} $$ 
+ 
+		 	
+      $$ R=x_{(N)}-x_{(1)} $$
+\end{columns}
+  }
+%-----------------------------------    QUARTILES ET HISTOGRAMME    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Quartiles et histogramme}
+\begin{center}
+ \scriptsize
+  \begin{tabular} {|c|c|c|c|c|c|c|}
+  	\hline & & & & & &\\ [-1mm]
+	& Moyenne	&	Eccart	&	Variance	&	Q25	&	Médiane	&	Q75	\\ [1mm]
+	  \hline  & & & & & & \\ [-1mm]
+	1er tour	&	44.0	&	7.1	&	49.8	&	40.1	&	44.8	&	48.6	\\
+	2nd tour 	&	42.6	&	7.0	&	48.8	&	37.9	&	42.4	&	46.3	\\ [1mm]
+	\hline
+  \end{tabular}
+
+ \begin{figure} [H]
+  \hspace{-1cm}  \includegraphics[width=12cm]{figures/histo_12.eps}
+ \end{figure}
+\end{center}
+}
+%-----------------------------------    DISTRIBUTION NORMALES
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} La distribution Normale}
+
+  \includegraphics[width=0.5\textwidth]{figures/Normal_Distribution.png}
+   \includegraphics[width=0.5\textwidth]{figures/Normal_Distribution_CDF.png}
+   
+ \begin{equation*}
+   f(x)=\frac{1}{\sigma \sqrt{2\pi}}\ e^{-\frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2}
+   \end{equation*}   
+   
+}
+
+% ------------------------------------------------------------------------
+%\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} La distribution Normale}
+	\begin{block} {MATLAB}	
+		\begin{itemize}
+		\item Génération de nombre aléatoire 
+		
+		{\color{blue} \emph{X=randn(Ni,Nj)}}
+		\item La densité de probabilité (probability density function)
+		
+		{\color{blue} \emph{p=pdf('Normal',x,mu,sigma)}}
+		\item La fonction de répartition (cumulative density function) 
+		
+		{\color{blue} \emph{p=cdf('Normal',x,mu,sigma)}}
+		\item L'inverse de la fonction de répartition (inverse cumulative distribution function)
+		
+		{\color{blue} \emph{x=icdf('Normal',p,mu,sigma)}}
+		
+		\end{itemize}
+
+	\end{block}
+}
+
+
+%-----------------------------------    DONNEES VS DISTRIBUTIONS    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Données vs distributions }
+
+  \begin{itemize}
+  \item Données de base: \hfill $Y_i\ {\color{red} \sim\ N(\mu_i, \sigma_i)}$ \quad avec $0  \leqslant i \leqslant n $
+  \item Linéaire: \hfill $a_j=\sum_i x_{ij} Y_i\ {\color{red} \sim\ N \left(\mu=\sum x_{ij}\mu_i, \ \sigma=\sqrt{\sum x_{ij}\sigma_i^2} \right)}$ 
+   \item Moyenne: \hfill $ \sqrt{n-1}\ \left( \frac{\bar{Y}-\mu}{s} \right) \ {\color{red} \sim \ T(\nu)}$ 
+   \item Fonction quadratique: \hfill $\left(  a_j\right)^2\  {\color{red} \sim\ \chi^2(w_j)}$
+   \item Rapport fonctions quadratiques: \hfill $ \frac{\left(  a_j\right)^2}{\left(  a_j\right)^2}\ {\color{red} \sim\ F \left(  w_j, w_i \right)}$
+  \end{itemize}
+}
+
+%-----------------------------------    DISTRIBUTION DE STUDENT    -----------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Distribution $t$ de Student et intervalle de confiance}
+
+  \begin{itemize}
+  \item Publié par William Gosset, 1908, (Guinness)
+  \item Définition:
+  
+  Si $Z \sim N(\mu , \sigma)$ et $U \sim \chi^2(k)$ alors $T=\frac{Z}{\sqrt{U/k}}  \sim t(k)$
+  
+  \item Théorème  de l'intervalle de confiance:
+  
+  \bigskip
+  $P \left( x \in \left[ \bar{x} -{ \color{red}t^{n-1}_{\alpha/2} \sqrt{\frac{S^2}{n}} } \ ,  \ \bar{x} +{\color{red}t^{n-1}_{\alpha/2} \sqrt{\frac{S^2}{n}} } \right] \right) = 1-\alpha$
+  \end{itemize}
+}
+
+% ---------------------------------------------------------------------------------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} La distribution $t_\nu$ de Student}
+\begin{block} {MATLAB}	
+\begin{itemize}
+\item Génération de nombre aléatoire selon la loi $t_\nu$
+
+{\color{blue} \emph{X=trnd(nu,Ni,Nj)}}
+\item Densité de probabilité (probability density function) de $t_\nu$
+
+{\color{blue} \emph{p=tpdf(x,nu)}}
+\item Fonction de répartition (cumulative density function) de $t_\nu$
+
+{\color{blue} \emph{p=tcdf(x,nu) \hspace{1cm}  p=tcdf(x,nu,'upper')}}
+\item Inverse de la fonction de répartition (inverse cumulative distribution function):
+
+{\color{blue} \emph{x=tinv(p,nu)}}
+
+\end{itemize}
+
+\end{block}
+}
+
+
+%-------------------------------------    INFLUENCE DU DEGRE DE LIBERTE   -------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Influence du degré de liberté sur $t^{\nu}_{0.05}$}
+
+   \begin{figure} [H]
+  \hspace{-1cm}  \includegraphics[width=9cm]{figures/student.jpg}
+ \end{figure}
+}
+%-------------------------------------    INFLUENCE DE LA PROBABILITE   -------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Influence de la probabilité sur $t^{\nu}_{\alpha}$}
+   \begin{figure} [H]
+  \hspace{-1cm}  \includegraphics[width=9cm]{figures/student_2.jpg}
+ \end{figure}
+}
+
+
+%-------------------------------------    NORMAL VS STUDENT    -------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Distribution Normale vs Student}
+  \begin{center}
+  $T(\nu) \approx N(0,1), \nu \leqslant 30$
+   \begin{figure} [H]
+  \includegraphics[width=10cm]{figures/student_vs_norm.jpg}
+ \end{figure}
+ \end{center}
+}
+
+%---------------------------------------------------------------------------------------------------------------
+%
+%               Analyse d'un cas
+%
+%---------------------------------------------------------------------------------------------------------------
+
+
+
+%-------------------------------------   MINDMAP ------------------------------------
+%\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt}Mindmap d'analyse d'un cas}
+  
+  \footnotesize
+  \begin{columns}[c]
+  \column{.45\textwidth}	    
+	         \begin{itemize}
+	              \item A faire dans la discussion initiale 
+	              \item A maintenir tout le long du projet
+	              \item A main levée ou avec un programme
+	              \item Quelques programmes :
+	                   \begin{itemize}
+	                          \item Freemind
+	                          \item iMindmap
+	                          \item Mindjet
+	                          \item Coogle    
+	                  \end{itemize}    
+	          \end{itemize}
+   \column{.55\textwidth}
+	 \begin{figure} [H]
+	  \include{figures/fig_mindmap_cas}
+	 \end{figure}
+ \end{columns}
+}
+
+%-------------------------------------    ELEMENTS DE MINDMAP    -------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Construite la Mindmap d'un cas}
+
+ \begin{figure} [H]
+	 \include{figures/fig_mindmap_comment}
+ \end{figure}
+}
+%--------------------------------------------------------------------------
+%
+%    SUBSECTION: Pesée de trois objets
+%
+%--------------------------------------------------------------------------
+
+\subsection{Pesée de trois objets}
+
+%-------------------------------------    TROIS OBJETS    -------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Pesée de trois objets}
+  
+  \begin{columns}[c]
+
+    \column{0.6\textwidth} 
+    \begin{block} { Données du problème}	
+   Mesurer le poids de trois objets avec la meilleure précision pour un coût raisonnable:
+         \begin{itemize}
+              \item Les objets ont des poids de même ordre de grandeur 
+              \item On dispose d'une balance à deux plateaux
+          \end{itemize}
+          \end{block}
+   \column{0.4\textwidth}
+\begin{center}
+ \begin{figure} [H]
+  \hspace{-1cm}  \includegraphics[width=4cm]{figures/balance.jpg}
+ \end{figure}
+ 
+  \begin{figure} [H]
+  \hspace{-1cm}  \includegraphics[width=2cm]{figures/poids.jpg}
+ \end{figure}
+
+ \end{center}
+ \end{columns}
+}
+%--------------------------------------------------------------------------
+
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Pesée de trois objets}
+\vspace{-1cm}
+
+ \begin{center}
+  \include{figures/fig_mindmap_balance}
+ \end{center}
+
+}
+%--------------------------------------------------------------------------
+
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Stratégie 1: Peser les objets un à un}
+  
+  \begin{columns}[c]
+    \column{0.5\textwidth} 
+         \begin{itemize}
+              \item Quatre mesures
+              \item Une mesure sans objet pour déterminer le zéro (l'offset) de la balance
+              \item Un seul objet à la fois sur un des deux plateaux 
+           \end{itemize}
+    \column{0.5\textwidth}
+            \begin{center}
+                     \begin{figure} [H]
+                            \hspace{-1cm}  \includegraphics[width=4.5cm]{figures/balance2.jpg}
+                     \end{figure}
+             \end{center}
+ \end{columns}
+ 
+ \begin{block} {Questions:}
+          \begin{itemize} \scriptsize
+             \item Quel est le poids de chaque objet?
+             \item Quelle est la précision de la mesure?
+          \end{itemize}
+  \end{block}
+}
+%--------------------------------------------------------------------------
+
+
+%\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Stratégie 1: Peser les objets un à un}
+   \begin{itemize}
+        \item \color{red} Quel est le poids de chaque objet?
+        \item \color{black} Quelle est la précision de la mesure?
+   \end{itemize}
+
+  \begin{columns}[c]
+    \column{0.4\textwidth} 
+       \begin{figure} [H]
+           \hspace{-1cm}  \includegraphics[width=3cm]{figures/balance3.jpg}
+       \end{figure}
+ \vfill
+      \column{0.6\textwidth}
+            $ \begin{bmatrix} R_o \\ R_1 \\ R_2 \\ R_3 \\
+            \end{bmatrix}
+            =\begin{bmatrix}
+            1&0 & 0 & 0 \\
+            1&-1 & 0 & 0 \\
+            1&0 & -1 & 0 \\
+            1&0 & 0 & -1 \\
+            \end{bmatrix}
+            \begin{bmatrix} m_o \\ m_1 \\ m_2 \\ m_3  \end{bmatrix} $
+\bigskip
+
+             $\left\{  \begin{tabular} {l}
+                $ m_o=R_o $ \\
+               $ m_i=R_o-R_i $
+             \end{tabular} \right.$
+            
+        \end{columns}
+}
+%-------------------------------------    STRATEGIE 1    -------------------------------------
+
+%\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Stratégie 1: Peser les objets un à un}
+   \begin{itemize}
+        \item \color{gray} Quel est le poids de chaque objet?
+        \item \color{red} Quelle est la précision de la mesure?
+   \end{itemize}
+
+  \begin{columns}[c]
+    \column{0.4\textwidth} 
+       \begin{figure} [H]
+           \hspace{-1cm}  \includegraphics[width=3cm]{figures/balance3.jpg}
+       \end{figure}
+ \vfill
+      \column{0.6\textwidth}
+                      $\left\{  \begin{tabular} {cl}
+  $ var (m_o)$ &$ = var (R_o) = \sigma^2 $ \\
+  \\
+   $ var (m_i) $ &$= var (R_o-R_i ) $ \\
+                 &$ = var (R_o) \color{red} +  \color{black} var(R_i ) $ \\
+                 &$ =2 \sigma^2$
+\end{tabular} \right.  $
+            
+        \end{columns}
+}
+%-------------------------------------    STRATEGIE 2    -------------------------------------
+
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Stratégie 2: Peser les objets deux à deux}
+  
+  \begin{columns}[c]
+    \column{0.5\textwidth} 
+         \begin{itemize}
+              \item Quatre mesures
+              \item Trois mesures deux objets sont comparés
+              \item Une mesure les trois objects sont pesés ensemble
+           \end{itemize}
+   \column{0.5\textwidth}
+\begin{center}
+ \begin{figure} [H]
+  \hspace{-1cm}  \includegraphics[width=4.5cm]{figures/balance4.jpg}
+ \end{figure}
+ \end{center}
+ \end{columns}
+ 
+ \begin{block} {Questions:}
+  \begin{itemize} \scriptsize
+   \item Quel est le poids de chaque objet?
+   \item Quelle est la précision de la mesure?
+ \end{itemize}
+  \end{block}
+}
+%--------------------------------------------------------------------------
+
+%\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt}Stratégie 2: Peser les objets deux à deux}
+   \begin{itemize}
+        \item \color{red} Quel est le poids de chaque objet?
+     \end{itemize}
+
+  \begin{columns}[c]
+    \column{0.4\textwidth} 
+       \begin{figure} [H]
+           \hspace{-1cm}  \includegraphics[width=3cm]{figures/balance5.jpg}
+       \end{figure}
+ \vfill
+      \column{0.6\textwidth}
+            $ \begin{bmatrix} R_1 \\ R_2 \\ R_3 \\ R_4 \end{bmatrix}
+            =\begin{bmatrix}
+            1& \phantom{-} 1 & -1 &  \phantom{-} 0 \\
+            1&-1 &  \phantom{-} 0 &  \phantom{-} 1 \\
+            1& \phantom{-} 0 &  \phantom{-} 1 & -1 \\
+            1&-1 & -1 & -1 \\
+            \end{bmatrix}
+            \begin{bmatrix} m_o \\ m_1 \\ m_2 \\ m_3  \end{bmatrix} $
+         \bigskip
+
+             $ \vec{R} = X \vec{m} \quad \Rightarrow \quad  \vec{m} = X^{-1}  \vec{R} $
+            
+        \end{columns}
+}
+%--------------------------------------------------------------------------
+
+% \refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Stratégie 2: Peser les objets deux à deux}
+   \begin{itemize}
+        \item \color{red} Quelle  est la précision de la mesure?
+ 
+            \item \color{black} $ \begin{bmatrix}
+            m_o \\
+            m_1 \\
+            m_2 \\
+            m_3 \\
+            \end{bmatrix}
+            = \frac{1}{9}\begin{bmatrix}
+             \phantom{-} 3& \phantom{-} 3 &  \phantom{-} 3 &  \phantom{-} 0 \\
+            \phantom{-} 4& -2 &  \phantom{-} 1 & -3 \\
+            -2&  \phantom{-} 1 & \phantom{-} 4 & -3 \\
+             \phantom{-} 1 &  \phantom{-} 4 &-2 & -3 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+            R_1 \\
+            R_2 \\
+            R_3 \\
+            R_4 \\
+            \end{bmatrix} $
+           
+
+             \item $var(  \vec{m}) = var(X^{-1}  \vec{R}) =  (X^{T}X)^{-1}  var(\vec{R})  =  D\  var(\vec{R})$
+ 
+            
+            \item   $var( m_i)  \approx  D_{ii}\  \sigma^2$
+   
+              
+             \item   $  D_{00}= 1/3 \quad D_{11}=D_{22}=D_{33}=10/27$
+                \end{itemize}
+}
+%--------------------------------------------------------------------------
+
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Stratégie 3: Trois objets à chaque mesure}
+  
+  \begin{columns}[c]
+    \column{0.5\textwidth} 
+         \begin{itemize}
+              \item Quatre mesures
+              \item Pour trois mesures deux objets sont mesurés contre un troisième
+              \item Pour une mesure les trois objects sont pesés ensemble
+           \end{itemize}
+   \column{0.5\textwidth}
+\begin{center}
+ \begin{figure} [H]
+  \hspace{-1cm}  \includegraphics[width=4.5cm]{figures/balance6.jpg}
+ \end{figure}
+ \end{center}
+ \end{columns}
+ 
+ \begin{block} {Questions:}
+  \begin{itemize} \scriptsize
+   \item Quel est le poids de chaque objet?
+   \item Quelle est la précision de la mesure?
+ \end{itemize}
+  \end{block}
+}
+%-------------------------------------    STRATEGIE 3    -------------------------------------
+%\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Stratégie 3: Trois objets à chaque mesure}
+   \begin{itemize}
+        \item \color{red} Quel est le poids de chaque objet?
+     \end{itemize}
+
+  \begin{columns}[c]
+    \column{0.4\textwidth} 
+       \begin{figure} [H]
+           \hspace{-1cm}  \includegraphics[width=3cm]{figures/balance7.jpg}
+       \end{figure}
+ \vfill
+      \column{0.6\textwidth}
+            $ \begin{bmatrix}
+            R_o \\
+            R_1 \\
+            R_2 \\
+            R_3 \\
+            \end{bmatrix}
+            =\begin{bmatrix}
+            1&-1 &  \phantom{-} 1 &  \phantom{-} 1 \\
+            1& \phantom{-} 1 & -1 &  \phantom{-} 1 \\
+            1& \phantom{-} 1 &  \phantom{-} 1 &   -1 \\
+            1&-1 & -1 & -1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+            m_o \\
+            m_1 \\
+            m_2 \\
+            m_3 \\
+            \end{bmatrix} $
+\bigskip
+
+             $ \vec{R} = X \vec{m} \quad \Rightarrow \quad  \vec{m} = X^{-1}  \vec{R} $
+            
+        \end{columns}
+}
+%--------------------------------------------------------------------------
+
+%\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Stratégie 3: Trois objets à chaque mesure}
+   \begin{itemize}
+        \item \color{red} Quelle  est la précision de la mesure?
+ 
+            \item \color{black} $ \begin{bmatrix} m_o \\ m_1 \\ m_2 \\ m_3  \end{bmatrix}
+            = \frac{1}{4}\begin{bmatrix}
+             \phantom{-}1& \phantom{-}1 &  \phantom{-}1 &  \phantom{-}1 \\
+           -1 &  \phantom{-}1&  \phantom{-}1& -1 \\
+            \phantom{-}1 & -1 &  \phantom{-}1 & -1 \\
+           \phantom{-}1&  \phantom{-}1& -1& -1  \\
+            \end{bmatrix}
+            \begin{bmatrix} R_o \\ R_1 \\ R_2 \\ R_3  \end{bmatrix} $
+           
+
+             \item $var(  \vec{m}) = var(X^{-1}  \vec{R}) =  (X^{T}X)^{-1}  var(\vec{R})  =  D\  var(\vec{R})$
+ 
+            
+            \item   $var( m_i)  \approx  D_{ii}\  \sigma^2$
+   
+              
+             \item   $  D_{00}=  D_{11}=D_{22}=D_{33}=1/4$
+                \end{itemize}
+}
+
+%--------------------------------------------------------------------------
+%
+%    SUBSECTION: CONCLUSION
+%
+%--------------------------------------------------------------------------
+
+\subsection{Conclusion}
+
+
+
+%--------------------------------------------------------------------------
+\refstepcounter{diapo}
+\frame{  \frametitle{\bf \thesection.\thesubsection.\thediapo \hspace{2pt} Conclusion}}
+
+\end{document}

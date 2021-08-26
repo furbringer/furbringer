@@ -1,0 +1,53 @@
+\documentclass[dvipsnames,varwidth]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[babel=true,kerning=true]{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pgf}	
+\usepackage{tikz}
+
+
+
+\usetikzlibrary{calc}
+\usepackage{adjustbox}
+
+%
+%----------------------------   DOCUMENT   --------------------------------------
+%
+
+\begin{document}
+
+\tikzset{
+	dot/.style={draw, rectangle, fill=Dandelion,minimum size=#1,inner sep=0pt,outer sep=0pt},
+	dot/.default=2.5cm,
+}
+
+\begin{adjustbox}{width=\textwidth}
+	\begin{tikzpicture}
+		
+		
+		\def \H {2cm}  % hauteur élémentaire
+		\def \L {4cm}    % position horizontale de la première rangée
+		
+		
+		\node[dot] (a) at (-\L,\H) {\small Rush hour};
+		\node[dot] (b) at (0,\H) {\small Mauvais temps};
+		\node[dot] (c) at (\L,\H) {\small Accident};
+		\node[dot] (d) at (0,-\H) {\small Embouteillage};
+		\node[dot] (e) at (\L,-\H) {\small Sir\`{e}ne};
+		
+
+		\draw[-latex] (a) edge (d);
+		\draw[-latex] (b) edge (c)
+									edge (d);
+	 	\draw[-latex] (c) edge (d)
+									edge (e);
+		
+		
+	\end{tikzpicture}
+\end{adjustbox}
+\end{document}
